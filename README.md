@@ -33,8 +33,12 @@ This repository contains a production-ready, maximum-hardened configuration for 
 1. Create a `.env` file in the root directory (make sure not to commit this file):
    ```env
    POSTGRES_USER=postgres
-   POSTGRES_PASSWORD=your_strong_password_here
+   POSTGRES_PASSWORD=CHANGE_ME_USE_STRONG_PASSWORD
    POSTGRES_DB=postgres
+   POSTGRES_SSL_ENABLED=on
+
+   # Source verification
+   PG_SHA256=9b4f86dd2ac00b914582e9893d1bad1f54bc9be7108fa794318b8184f921ec08
    ```
 
 2. Spin up the container:
