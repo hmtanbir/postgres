@@ -1,0 +1,45 @@
+services:
+  postgres:
+    image: hmtanbir/postgres:18.4
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        PG_VERSION: "18_4"
+        PG_SHA256: ${PG_SHA256:?Set PG_SHA256 in .env or environment}
+        LABEL_VERSION: "18.4"
+    container_name: postgres
+    ports:
+      - "127.0.0.1:5432:5432"
+    env_file:
+      - .env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+    # --- Security hardening ---
+    read_only: true
+    tmpfs:
+      - /tmp
+      - /var/run/postgresql
+
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+          cpus: "2.0"
+
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  postgres_data:
+    driver: local
