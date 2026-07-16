@@ -155,8 +155,12 @@ if [ ! -s "$PGDATA/PG_VERSION" ]; then
         rm -f "$PGDATA/pg_hba.conf.bak"
     fi
 
-    # Allow password-authenticated connections from any IP (requires SSL)
-    echo "hostssl all all 0.0.0.0/0 scram-sha-256" >> "$PGDATA/pg_hba.conf"
+    # Allow password-authenticated connections from any IP
+    if [ "${POSTGRES_SSL_ENABLED:-on}" = "on" ]; then
+        echo "hostssl all all 0.0.0.0/0 scram-sha-256" >> "$PGDATA/pg_hba.conf"
+    else
+        echo "host all all 0.0.0.0/0 scram-sha-256" >> "$PGDATA/pg_hba.conf"
+    fi
 
     echo "Database initialization complete."
 fi
