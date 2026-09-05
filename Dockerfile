@@ -6,7 +6,7 @@ RUN apk add --no-cache \
     readline-dev zlib-dev openssl-dev util-linux-dev \
     linux-headers bison flex perl
 
-ARG PG_VERSION=18_4
+ARG PG_VERSION=18_6
 ARG PG_URL=https://github.com/postgres/postgres/archive/refs/tags/REL_${PG_VERSION}.tar.gz
 ARG PG_SHA256
 
@@ -56,7 +56,7 @@ RUN printf '#include <stdio.h>\n#include <unistd.h>\n#include <string.h>\nint ma
 # Stage 3: Final hardened image
 FROM dhi.io/alpine-base:3.24@sha256:037a503be3d6f50f01bde0ef366e9b9c84060a2db5781b076df40cdd706e5119
 
-ARG LABEL_VERSION=18.4
+ARG LABEL_VERSION=18.6
 LABEL maintainer="hmtanbir" \
       version="${LABEL_VERSION}" \
       description="Hardened PostgreSQL ${LABEL_VERSION} server with shell access disabled"
