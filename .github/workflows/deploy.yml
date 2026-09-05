@@ -13,14 +13,14 @@ on:
       pg_version:
         description: 'PostgreSQL version (e.g. 18.4)'
         required: false
-        default: '18.4'
+        default: '18.6'
 
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
     env:
       IMAGE_NAME: postgres
-      PG_VERSION_FULL: ${{ github.event.inputs.pg_version || '18.4' }}
+      PG_VERSION_FULL: ${{ github.event.inputs.pg_version || '18.6' }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
